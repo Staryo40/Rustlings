@@ -1,5 +1,14 @@
 fn main() {
     // You can optionally experiment here.
+    slice_array();
+}
+
+fn slice_array(){
+    let a = [1, 2, 3, 4, 5];
+    let nice_slice = &a[1..4];
+    for _ in 0..nice_slice.len() {
+        println!("{:?}", nice_slice);
+    }
 }
 
 #[cfg(test)]

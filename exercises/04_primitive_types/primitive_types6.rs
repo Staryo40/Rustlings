@@ -1,5 +1,12 @@
 fn main() {
     // You can optionally experiment here.
+    index_tuple();
+}
+
+fn index_tuple(){
+    let numbers = (1, 2, 3);
+    let second = numbers.1;
+    println!("second = {}", second);
 }
 
 #[cfg(test)]
