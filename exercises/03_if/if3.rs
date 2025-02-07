@@ -3,11 +3,11 @@ fn animal_habitat(animal: &str) -> &str {
     let identifier = if animal == "crab" {
         1
     } else if animal == "gopher" {
-        2.0
+        2
     } else if animal == "snake" {
         3
     } else {
-        "Unknown"
+        4
     };
 
     // Don't change the expression below!
@@ -24,6 +24,14 @@ fn animal_habitat(animal: &str) -> &str {
 
 fn main() {
     // You can optionally experiment here.
+    let mut x = "crab";
+    println!("Crab are found in a {}", animal_habitat(x));
+    x = "gopher";
+    println!("Gopher are found in a {}", animal_habitat(x));
+    x = "snake";
+    println!("Snake are found in a {}", animal_habitat(x));
+    x = "elephant";
+    println!("Elephant are found in a {}", animal_habitat(x));
 }
 
 // Don't change the tests!
