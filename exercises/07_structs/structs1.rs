@@ -1,15 +1,31 @@
 struct ColorRegularStruct {
     // TODO: Add the fields that the test `regular_structs` expects.
     // What types should the fields have? What are the minimum and maximum values for RGB colors?
+    red: u32,
+    green: u32,
+    blue: u32,
 }
 
-struct ColorTupleStruct(/* TODO: Add the fields that the test `tuple_structs` expects */);
+struct ColorTupleStruct(u32, u32, u32/* TODO: Add the fields that the test `tuple_structs` expects */);
 
-#[derive(Debug)]
-struct UnitStruct;
+// #[derive(Debug)]
+// struct UnitStruct;
 
 fn main() {
     // You can optionally experiment here.
+    let green = ColorRegularStruct {
+        red: 0,
+        green: 255,
+        blue: 0,
+    };
+    println!("red of green = {}", green.red);
+    println!("green of green = {}", green.green);
+    println!("blue of green = {}", green.blue);
+
+    let g = ColorTupleStruct(0, 255, 0);
+    println!("0 of green = {}", g.0);
+    println!("1 of green = {}", g.1);
+    println!("2 of green = {}", g.2);
 }
 
 #[cfg(test)]
@@ -39,7 +55,7 @@ mod tests {
     #[test]
     fn unit_structs() {
         // TODO: Instantiate a unit struct.
-        // let unit_struct =
+        let unit_struct = UnitStruct;
         let message = format!("{unit_struct:?}s are fun!");
 
         assert_eq!(message, "UnitStructs are fun!");
