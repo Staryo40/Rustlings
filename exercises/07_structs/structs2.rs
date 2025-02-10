@@ -23,6 +23,21 @@ fn create_order_template() -> Order {
 
 fn main() {
     // You can optionally experiment here.
+    let order_template = create_order_template();
+    let your_order = Order {
+        name: String::from("Hacker in Rust"),
+        count: 1,
+        ..order_template
+    };
+
+    println!("Order Details:");
+    println!("Name: {}", your_order.name);
+    println!("Year: {}", your_order.year);
+    println!("Made by phone: {}", your_order.made_by_phone);
+    println!("Made by mobile: {}", your_order.made_by_mobile);
+    println!("Made by email: {}", your_order.made_by_email);
+    println!("Item number: {}", your_order.item_number);
+    println!("Count: {}", your_order.count);
 }
 
 #[cfg(test)]

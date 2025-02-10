@@ -24,19 +24,39 @@ impl Package {
     }
 
     // TODO: Add the correct return type to the function signature.
-    fn is_international(&self) {
+    fn is_international(&self) -> bool {
         // TODO: Read the tests that use this method to find out when a package
         // is considered international.
+        self.sender_country != self.recipient_country
     }
 
     // TODO: Add the correct return type to the function signature.
-    fn get_fees(&self, cents_per_gram: u32) {
+    fn get_fees(&self, cents_per_gram: u32) -> u32 {
         // TODO: Calculate the package's fees.
+        self.weight_in_grams * cents_per_gram
     }
 }
 
 fn main() {
     // You can optionally experiment here.
+    let mut sender_country = String::from("Canada");
+    let mut recipient_country = sender_country.clone();
+
+    let package = Package::new(sender_country.clone(), recipient_country.clone(), 1200);
+    println!("Package is international? {}", package.is_international());
+
+    sender_country = String::from("Spain");
+    recipient_country = String::from("Austria");
+
+    let package2 = Package::new(sender_country.clone(), recipient_country.clone(), 1200);
+    println!("Package2 is international? {}", package2.is_international());
+
+    let cents_per_gram = 3;
+
+    let package3 = Package::new(sender_country.clone(), recipient_country.clone(), 1500);
+
+    println!("Package transport fee 3/gram: {}", package3.get_fees(cents_per_gram));
+    println!("Package transport fee 6/gram: {}", package3.get_fees(cents_per_gram * 2));
 }
 
 #[cfg(test)]
