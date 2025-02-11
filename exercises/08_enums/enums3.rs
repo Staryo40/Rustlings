@@ -46,43 +46,86 @@ impl State {
     fn process(&mut self, message: Message) {
         // TODO: Create a match expression to process the different message
         // variants using the methods defined above.
+        match message {
+            Message::Resize{width, height} => self.resize(width, height),
+            Message::Move(point) => self.move_position(point),
+            Message::Echo(string) => self.echo(string),
+            Message::ChangeColor(red, green, blue) => self.change_color(red, green, blue),
+            Message::Quit => self.quit(),
+        }
     }
 }
 
 fn main() {
     // You can optionally experiment here.
+    test_match_message_call();
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+fn test_match_message_call() {
+    let mut state = State {
+        width: 0,
+        height: 0,
+        position: Point { x: 0, y: 0 },
+        message: String::from("hello world"),
+        color: (0, 0, 0),
+        quit: false,
+    };
 
-    #[test]
-    fn test_match_message_call() {
-        let mut state = State {
-            width: 0,
-            height: 0,
-            position: Point { x: 0, y: 0 },
-            message: String::from("hello world"),
-            color: (0, 0, 0),
-            quit: false,
-        };
+    state.process(Message::Resize {
+        width: 10,
+        height: 30,
+    });
+    state.process(Message::Move(Point { x: 10, y: 15 }));
+    state.process(Message::Echo(String::from("Hello world!")));
+    state.process(Message::ChangeColor(255, 0, 255));
+    state.process(Message::Quit);
 
-        state.process(Message::Resize {
-            width: 10,
-            height: 30,
-        });
-        state.process(Message::Move(Point { x: 10, y: 15 }));
-        state.process(Message::Echo(String::from("Hello world!")));
-        state.process(Message::ChangeColor(255, 0, 255));
-        state.process(Message::Quit);
-
-        assert_eq!(state.width, 10);
-        assert_eq!(state.height, 30);
-        assert_eq!(state.position.x, 10);
-        assert_eq!(state.position.y, 15);
-        assert_eq!(state.message, "Hello world!");
-        assert_eq!(state.color, (255, 0, 255));
-        assert!(state.quit);
-    }
+    println!("State width: {}", state.width);
+    println!("State height: {}", state.height);
+    println!("State position: ({}, {})", state.position.x, state.position.y);
+    println!("State message: {}", state.message);
+    println!("State color: {:?}", state.color);
+    println!("State quit: {}", state.quit);
+    
+    assert_eq!(state.width, 10);
+    assert_eq!(state.height, 30);
+    assert_eq!(state.position.x, 10);
+    assert_eq!(state.position.y, 15);
+    assert_eq!(state.message, "Hello world!");
+    assert_eq!(state.color, (255, 0, 255));
+    assert!(state.quit);
 }
+
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+
+//     #[test]
+//     fn test_match_message_call() {
+//         let mut state = State {
+//             width: 0,
+//             height: 0,
+//             position: Point { x: 0, y: 0 },
+//             message: String::from("hello world"),
+//             color: (0, 0, 0),
+//             quit: false,
+//         };
+
+//         state.process(Message::Resize {
+//             width: 10,
+//             height: 30,
+//         });
+//         state.process(Message::Move(Point { x: 10, y: 15 }));
+//         state.process(Message::Echo(String::from("Hello world!")));
+//         state.process(Message::ChangeColor(255, 0, 255));
+//         state.process(Message::Quit);
+
+//         assert_eq!(state.width, 10);
+//         assert_eq!(state.height, 30);
+//         assert_eq!(state.position.x, 10);
+//         assert_eq!(state.position.y, 15);
+//         assert_eq!(state.message, "Hello world!");
+//         assert_eq!(state.color, (255, 0, 255));
+//         assert!(state.quit);
+//     }
+// }

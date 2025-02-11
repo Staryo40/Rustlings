@@ -1,17 +1,39 @@
-#[derive(Debug)]
+// #[derive(Debug)]
 struct Point {
     x: u64,
     y: u64,
 }
 
-#[derive(Debug)]
+// #[derive(Debug)]
 enum Message {
     // TODO: Define the different variants used below.
+    Resize{width: u32, height: u32},
+    Move(Point),
+    Echo(String),
+    ChangeColor(u8, u8, u8),
+    Quit,
 }
 
 impl Message {
     fn call(&self) {
-        println!("{self:?}");
+        // println!("{self:?}");
+        match self {
+            Message::Resize { width, height } => {
+                println!("Resize: width = {}, height = {}", width, height);
+            }
+            Message::Move(Point { x, y }) => {
+                println!("Move: Point({}, {})", x, y);
+            }
+            Message::Echo(message) => {
+                println!("Echo: {}", message);
+            }
+            Message::ChangeColor(r, g, b) => {
+                println!("ChangeColor: RGB({}, {}, {})", r, g, b);
+            }
+            Message::Quit => {
+                println!("Quit");
+            }
+        }
     }
 }
 
