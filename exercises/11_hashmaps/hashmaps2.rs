@@ -19,6 +19,18 @@ enum Fruit {
     Pineapple,
 }
 
+impl ToString for Fruit {
+    fn to_string(&self) -> String {
+        match self {
+            Fruit::Apple => String::from("Apple"),
+            Fruit::Banana => String::from("Banana"),
+            Fruit::Mango => String::from("Mango"),
+            Fruit::Lychee => String::from("Lychee"),
+            Fruit::Pineapple => String::from("Pineapple"),
+        }
+    }
+}
+
 fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
     let fruit_kinds = [
         Fruit::Apple,
@@ -29,14 +41,22 @@ fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
     ];
 
     for fruit in fruit_kinds {
-        // TODO: Insert new fruits if they are not already present in the
-        // basket. Note that you are not allowed to put any type of fruit that's
-        // already present!
+        // Insert new fruits if they are not already present
+        basket.entry(fruit).or_insert(0);
     }
 }
 
 fn main() {
-    // You can optionally experiment here.
+    let mut content = HashMap::new();
+    content.insert(Fruit::Apple, 4);
+    content.insert(Fruit::Mango, 2);
+    content.insert(Fruit::Lychee, 5);
+
+    fruit_basket(&mut content);
+
+    for (key, value) in &content {
+        println!("{}: {}", key.to_string(), value);
+    }
 }
 
 #[cfg(test)]

@@ -31,6 +31,26 @@ fn build_scores_table(results: &str) -> HashMap<&str, TeamScores> {
         // Keep in mind that goals scored by team 1 will be the number of goals
         // conceded by team 2. Similarly, goals scored by team 2 will be the
         // number of goals conceded by team 1.
+        if let Some(team) = scores.get_mut(&team_1_name) {
+            team.goals_scored += team_1_score;
+            team.goals_conceded += team_2_score;
+        } else {
+            scores.insert(team_1_name, TeamScores {
+                goals_scored: team_1_score,
+                goals_conceded: team_2_score,
+            });
+        }
+
+        // Update team 2's scores
+        if let Some(team) = scores.get_mut(&team_2_name) {
+            team.goals_scored += team_2_score;
+            team.goals_conceded += team_1_score;
+        } else {
+            scores.insert(team_2_name, TeamScores {
+                goals_scored: team_2_score,
+                goals_conceded: team_1_score,
+            });
+        }
     }
 
     scores
@@ -38,6 +58,16 @@ fn build_scores_table(results: &str) -> HashMap<&str, TeamScores> {
 
 fn main() {
     // You can optionally experiment here.
+    const RESULTS: &str = "England,France,4,2
+France,Italy,3,1
+Poland,Spain,2,0
+Germany,England,2,1
+England,Spain,1,0";
+    let scores = build_scores_table(RESULTS);
+    println!("{}", scores.len());
+    for (team, score) in &scores {
+        println!("{} - Goals Scored: {}, Goals Conceded: {}", team, score.goals_scored, score.goals_conceded);
+    }
 }
 
 #[cfg(test)]
