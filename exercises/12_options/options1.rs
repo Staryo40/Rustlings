@@ -4,10 +4,26 @@
 // `hour_of_day` is higher than 23.
 fn maybe_icecream(hour_of_day: u16) -> Option<u16> {
     // TODO: Complete the function body.
+    if hour_of_day > 23 {
+        return None;
+    } 
+
+    if hour_of_day < 22 {
+        Some(5)
+    } else {
+        Some(0)
+    }
 }
 
 fn main() {
     // You can optionally experiment here.
+    println!("maybe_icecream(0): {:?}", maybe_icecream(0));
+    println!("maybe_icecream(9): {:?}", maybe_icecream(9));
+    println!("maybe_icecream(18): {:?}", maybe_icecream(18));
+    println!("maybe_icecream(22): {:?}", maybe_icecream(22));
+    println!("maybe_icecream(23): {:?}", maybe_icecream(23));
+    println!("maybe_icecream(24): {:?}", maybe_icecream(24));
+    println!("maybe_icecream(25): {:?}", maybe_icecream(25));
 }
 
 #[cfg(test)]
